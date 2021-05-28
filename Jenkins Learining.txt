@@ -1,0 +1,181 @@
+
+--------------------------------------
+Lecture-01 Freestyle job sample script
+--------------------------------------
+#!/bin/bash
+for a in 1 2 3 4 5 6 7 8 9 10
+do
+
+	if [ $a == 5 ];
+    then
+    	sleep 10
+    fi
+    
+    echo "Iteration no $a"
+done
+
+---------------------------------------------------
+Lecture-02 Jenkins integration with GIT and Git Hub
+---------------------------------------------------
+
+Search for the "Github integration" and "Github plugin" plugins from manage jenkins
+
+Cron Job or Job Scheduling
+--------------------------
+Minutes [0-59]
+|   Hours [0-23]
+|   |   Days [1-31]
+|   |   |   Months [1-12]
+|   |   |   |   Days of the Week [Numeric, 0-6]
+|   |   |   |   |
+*   *   *   *   * 
+
+---------------------------------------------------
+Lecture-03 : Installing maven on Linux 
+---------------------------------------------------
+
+1. Verify mvn is installed or not by
+	mvn --version
+2. if version number reflects, mvn installed 
+	else we need to install
+3. now verify mvn --version
+	Apache Maven 3.0.5 (Red Hat 3.0.5-17)
+	Maven home: /usr/share/maven
+	Java version: 1.8.0_292, vendor: Red Hat, Inc.
+	Java home: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64/jre
+	Default locale: en_US, platform encoding: UTF-8
+	OS name: "linux", version: "3.10.0-1160.25.1.el7.x86_64", arch: "amd64", family: "unix"
+
+
+---------------------------------------------------
+Lecture-04 : Configuring Jenkins with Maven and GIT
+---------------------------------------------------
+
+Step 01: jenkins dashboard
+
+Step 02: Manage Jenkins
+
+Step 03: Global Tool Configuration
+
+Step 04: JDK -> Add JDK
+		Name:	Local_JDK
+		Path:	/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.292.b10-1.el7_9.x86_64
+		(click outside the box, if any error doesn't arrived then path is correct)
+
+Step 05: GIT -> Add GIT
+		Name:	Local_GIT (no need to add anything in the path)
+
+Step 06: Mavem -> Add Maven
+		Name:	Loocal_Maven
+		Path:	/usr/share/maven
+
+Step 07: Apply & Save
+
+---------------------------------------------------
+Lecture-05 : Creating First Maven Project
+---------------------------------------------------
+
+Step 01: Go to the github (already having the project in my github account)
+
+Step 02: create a freestyly project
+		Demo02_Maven_Project -> ok
+
+Step 03: Discard old builds
+
+Step 04: Select GIT from Source Code Management
+		Provide the git repo URL
+		Branch Specifier: */master |
+		
+Step 05: Build Environment: Delete workspace before build starts
+
+Step 06: Build -> invoke top level Maven targets
+		Maven version	: Local_Maven
+		Goals		: test install
+		click on Advance
+		POM		: /maven-samples/single-module/pom.xml
+		Save
+
+Step 07: Click on "Build Now"
+	(later we can change the Goals for eg: clean test package to generate war files to deploy the same)
+
+---------------------------------------------------
+Lecture-06 : Source code polling in Jenkins
+---------------------------------------------------
+
+Step 01: Select the job -> Configure
+
+Step 02: Build Trigger -> Poll SCM
+		* * * * *	(Min - Hour - Date - Month - Day of week)
+				(0-59 | 0-23 | 0-31 | 0-12| 0-6)
+
+Step 03: GO to the above mentioned git code and made few changes to check the polling in jenkins
+		Modify/create/update any text in the code
+		Here am going with TestGreeter.java file
+		commit the code and push the same to central repo by using git push
+
+Step 04: Go to the project and wait for few seconds, build will start automatically.
+
+
+---------------------------------------------------
+Lecture-07 : Remote Build Triggers in Jenkins
+---------------------------------------------------
+
+Triggering the build jobs in Jenkins remotely (on other server) by using "TestAuth" key
+
+Step 01: Select the job -> Configure
+
+Step 02: Build Trigger -> Trigger Build Remotely 
+		Authentication Token : TestAuth
+
+Step 03: Execute the job by selecting the provided URL
+		JENKINS_URL/job/Demo_Job01/build?token=TOKEN_NAME or /buildWithParameters?token=TOKEN_NAME
+		
+Step 04: Open another browser -> Paste the below mentioned URL with jenkins URL
+localhost:8080/job/Demo_Job01/build?token=TestAuth or /buildWithParameters?token=TestAuth
+
+Step 05: Login with jenkins credentials (it won't display anything in this browser)
+
+Step 06: Check the build jobs in the current project/task
+		Build number will be incremented
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
