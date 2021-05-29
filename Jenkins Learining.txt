@@ -1,3 +1,8 @@
+-------------------------------
+Lecture-00 Jenkins installation
+-------------------------------
+
+https://linuxize.com/post/how-to-install-jenkins-on-centos-7/
 
 --------------------------------------
 Lecture-01 Freestyle job sample script
