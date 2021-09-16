@@ -297,6 +297,36 @@ Step 04: Deploying Application in Staging Environment
 
 Step 05: Dashboard -> Tomcat Applications -> 02_Application_Deployment
 		|-> Build Now (If build is successful 99% it will successful)
+			***TROUBLESHOOTING THE ERROR UNABLE TO DEPLOY THE WAR FILE***
+			-------------------------------------------------------------
+			In Linux Machine/Tomcat Server
+			cd /opt/tomcat/tomcat8/conf/
+			vi tomcat-users.xml
+			 <role rolename="manager-script"/>
+  			<role rolename="manager-gui"/>
+  			<user username="tomcat" password="root" roles="manager-script,manager-gui"/>
+			</tomcat-users>
+			esc :wq
+			
+			Restart the Tomcat service
+			--------------------------
+			cd /opt/tomcat/tomcat8/bin
+			sh shutdown.sh
+			sh startup.sh
+			
+			If still the issue persists
+			---------------------------
+			cd /opt/tomcat/tomcat8/webapps/manager/META-INF
+			ls context.xml
+			comment the below part by using "<!-- -->"
+			
+			<!--
+			  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+				 allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+			-->
+			esc :wq
+			restart the tomcat server by using shutdown.sh and startup.sh
+			
 		|-> Open the browser
 			- 192.168.1.203:9090/myDeployment
 			- We can see our deployed web application content
